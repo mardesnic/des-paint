@@ -8,7 +8,6 @@ import { Confetti } from './components/Confetti';
 import {
   initialStats,
   initialStore,
-  isFull,
   isMatched,
   newRound,
   pour,
@@ -59,7 +58,6 @@ export default function App() {
   const cheer = useCheer(sound);
   const plop = usePlop(sound);
   const [celebrating, setCelebrating] = useState(false);
-  const [hint, setHint] = useState(false);
 
   const round = store.round;
 
@@ -67,7 +65,6 @@ export default function App() {
     setStore({
       round: newRound(level, Math.random, round?.target),
     });
-    setHint(false);
     setView('play');
   };
 
@@ -145,7 +142,7 @@ export default function App() {
       {view === 'play' && round && (
         <>
           <div className='stage'>
-            <Board round={round} hint={hint} onPour={onPour} t={t} />
+            <Board round={round} onPour={onPour} t={t} />
           </div>
 
           {solved ? (
@@ -165,16 +162,7 @@ export default function App() {
             </section>
           ) : (
             <div className='bar'>
-              <p className='goal'>{isFull(round) ? t.full : t.goal}</p>
               <div className='tools'>
-                <button
-                  className='tool'
-                  onClick={() => setHint(!hint)}
-                  aria-pressed={hint}
-                  aria-label={t.hint}
-                >
-                  <Icon name='hint' />
-                </button>
                 <button
                   className='tool'
                   onClick={() => update(undo(round))}

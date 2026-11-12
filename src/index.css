@@ -380,16 +380,7 @@ h2 {
 
 .bar {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 10px 14px;
-}
-
-.goal {
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
+  justify-content: center;
 }
 
 .tools {

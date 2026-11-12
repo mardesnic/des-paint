@@ -19,7 +19,7 @@ On your phone, open it and choose **Add to Home Screen** (Safari) or **Install a
   - **Hard**: up to three drops of a paint, and black too
 - Paint mixes like real paint: yellow and blue make green
 - What counts is how much of each paint there is, so one red and one yellow make the same orange as two and two
-- The drops in the tube are shown as dots, so they can be counted, and a hint shows the drops the colour is made of
+- The drops in the tube are shown as dots, so they can be counted
 - A count of colours made at each level
 - Picks up where you left off after a reload
 - Keeps the screen on while you play

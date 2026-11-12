@@ -27,9 +27,6 @@ const en = {
     medium: 'Medium',
     hard: 'Hard',
   } as Record<Level, string>,
-  goal: 'Make this colour',
-  hint: 'Show how to make it',
-  full: 'The tube is full',
   tube: 'Test tube',
   paints: {
     red: 'Red',
@@ -69,9 +66,6 @@ const hr: Strings = {
     medium: 'Srednje',
     hard: 'Teško',
   },
-  goal: 'Napravi ovu boju',
-  hint: 'Pokaži kako se radi',
-  full: 'Epruveta je puna',
   tube: 'Epruveta',
   paints: {
     red: 'Crvena',

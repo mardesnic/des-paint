@@ -1,5 +1,4 @@
 import {
-  PAINTS,
   PALETTE,
   TUBE_HOLDS,
   colourOf,
@@ -43,12 +42,10 @@ const DEPTH = 140;
 
 export function Board({
   round,
-  hint,
   onPour,
   t,
 }: {
   round: Round;
-  hint: boolean;
   onPour: (p: Paint) => void;
   t: Strings;
 }) {
@@ -67,19 +64,7 @@ export function Board({
           <svg viewBox='-60 -60 120 120' className='splat' aria-hidden='true'>
             <path d={SPLAT} style={{ fill: target }} />
           </svg>
-          <figcaption className='recipe' aria-hidden={!hint}>
-            {hint &&
-              PAINTS.flatMap((p) =>
-                Array.from({ length: round.target[p] }, (_, i) => (
-                  <span
-                    key={`${p}${i}`}
-                    className='dot'
-                    style={{ background: css(colourOf(p)) }}
-                    title={t.paints[p]}
-                  />
-                ))
-              )}
-          </figcaption>
+          <div className='recipe' />
         </figure>
 
         <figure className='picture'>
