@@ -4,7 +4,7 @@ import {
   LEVELS,
   PAINTS,
   PALETTE,
-  POT,
+  TUBE_HOLDS,
   emptyRecipe,
   initialStats,
   isFull,
@@ -76,7 +76,7 @@ describe('mixing', () => {
     expect(sum(mix(recipe({ blue: 1, black: 1 }))!)).toBeLessThan(blue);
   });
 
-  it('has nothing in an empty pot', () => {
+  it('has nothing in an empty tube', () => {
     expect(mix(emptyRecipe())).toBeUndefined();
   });
 });
@@ -88,7 +88,7 @@ describe('targets', () => {
       expect(list.length).toBeGreaterThan(2);
       for (const t of list) {
         const drops = PAINTS.flatMap((p) => Array<Paint>(t[p]).fill(p));
-        expect(drops.length).toBeLessThanOrEqual(POT);
+        expect(drops.length).toBeLessThanOrEqual(TUBE_HOLDS);
         expect(drops.every((p) => PALETTE[level].includes(p))).toBe(true);
         expect(isMatched(pourAll(round(t, level), drops))).toBe(true);
         expect(PAINTS.filter((p) => t[p]).length).toBeGreaterThan(1);
@@ -121,7 +121,7 @@ describe('targets', () => {
 });
 
 describe('playing', () => {
-  it('is solved when the pot is the colour, however much is in it', () => {
+  it('is solved when the tube is the colour, however much is in it', () => {
     let r = round({ red: 1, yellow: 1 }, 'veryEasy');
     r = pourAll(r, ['red', 'red']);
     expect(isMatched(r)).toBe(false);
@@ -139,8 +139,11 @@ describe('playing', () => {
     expect(pour(r, 'black')).toBe(r);
   });
 
-  it('stops when the pot is full', () => {
-    const r = pourAll(round({ red: 1, blue: 1 }), Array(POT).fill('red'));
+  it('stops when the tube is full', () => {
+    const r = pourAll(
+      round({ red: 1, blue: 1 }),
+      Array(TUBE_HOLDS).fill('red')
+    );
     expect(isFull(r)).toBe(true);
     expect(pour(r, 'blue')).toBe(r);
   });

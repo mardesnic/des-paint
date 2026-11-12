@@ -29,8 +29,8 @@ const en = {
   } as Record<Level, string>,
   goal: 'Make this colour',
   hint: 'Show how to make it',
-  full: 'The pot is full',
-  pot: 'Pot',
+  full: 'The tube is full',
+  tube: 'Test tube',
   paints: {
     red: 'Red',
     yellow: 'Yellow',
@@ -71,8 +71,8 @@ const hr: Strings = {
   },
   goal: 'Napravi ovu boju',
   hint: 'Pokaži kako se radi',
-  full: 'Lonac je pun',
-  pot: 'Lonac',
+  full: 'Epruveta je puna',
+  tube: 'Epruveta',
   paints: {
     red: 'Crvena',
     yellow: 'Žuta',

@@ -1,7 +1,7 @@
 import {
   PAINTS,
   PALETTE,
-  POT,
+  TUBE_HOLDS,
   colourOf,
   count,
   css,
@@ -35,6 +35,12 @@ const SPLAT = (() => {
   return d + 'Z';
 })();
 
+// The test tube: straight sides and a round bottom.
+const TUBE = 'M50 20V154a20 20 0 0 0 40 0V20z';
+// Where the paint stands with nothing in it, and how high a full tube is.
+const BOTTOM = 174;
+const DEPTH = 140;
+
 export function Board({
   round,
   hint,
@@ -50,11 +56,8 @@ export function Board({
   const target = css(mix(round.target)!);
   const solved = isMatched(round);
   const full = isFull(round);
-  // How high the paint stands in the pot: a little even for one drop.
-  const level = round.drops.length
-    ? 0.25 + (0.75 * round.drops.length) / POT
-    : 0;
-  const top = 128 - 70 * level;
+  // How high the paint stands in the tube: each drop the same.
+  const top = BOTTOM - (DEPTH * round.drops.length) / TUBE_HOLDS;
   const last = round.drops[round.drops.length - 1];
 
   return (
@@ -81,36 +84,34 @@ export function Board({
 
         <figure className='picture'>
           <svg
-            viewBox='0 0 140 140'
-            className='pot'
+            viewBox='30 0 80 190'
+            className='tube'
             role='img'
-            aria-label={t.pot}
+            aria-label={t.tube}
           >
             <defs>
               <clipPath id='inside'>
-                <path d='M22 52h96l-8 74a10 10 0 0 1-10 9H40a10 10 0 0 1-10-9z' />
+                <path d={TUBE} />
               </clipPath>
             </defs>
-            <path
-              className='pot__inside'
-              d='M22 52h96l-8 74a10 10 0 0 1-10 9H40a10 10 0 0 1-10-9z'
-            />
+            <ellipse className='tube__shadow' cx='70' cy='182' rx='26' ry='4' />
+            <path className='tube__inside' d={TUBE} />
             {now && (
               <g clipPath='url(#inside)'>
                 <rect
-                  className='pot__paint'
+                  className='tube__paint'
                   x='0'
                   y={top}
                   width='140'
-                  height='140'
+                  height='190'
                   style={{ fill: css(now) }}
                 />
                 <ellipse
-                  className='pot__paint pot__surface'
+                  className='tube__paint tube__surface'
                   cx='70'
                   cy={top}
-                  rx='60'
-                  ry='6'
+                  rx='19'
+                  ry='3'
                   style={{ fill: css(now) }}
                 />
               </g>
@@ -118,24 +119,27 @@ export function Board({
             {last && (
               <circle
                 key={round.drops.length}
-                className='pot__drop'
+                className='tube__drop'
                 cx='70'
                 cy={top}
-                r='5'
-                style={{ fill: css(colourOf(last)) }}
+                r='6'
+                style={
+                  {
+                    fill: css(colourOf(last)),
+                    '--fall': `${top}px`,
+                  } as React.CSSProperties
+                }
               />
             )}
-            <path
-              className='pot__wall'
-              d='M22 52h96l-8 74a10 10 0 0 1-10 9H40a10 10 0 0 1-10-9z'
-            />
+            <path className='tube__shine' d='M57 34v118' />
+            <path className='tube__wall' d={TUBE} />
             <rect
-              className='pot__rim'
-              x='14'
-              y='44'
-              width='112'
-              height='12'
-              rx='6'
+              className='tube__lip'
+              x='44'
+              y='12'
+              width='52'
+              height='10'
+              rx='5'
             />
           </svg>
           <figcaption className='recipe'>

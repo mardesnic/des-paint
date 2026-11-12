@@ -74,7 +74,7 @@ export function useCheer(on: boolean) {
   return on ? cheer : quiet;
 }
 
-// A short drip when a drop falls in the pot, a little higher each time.
+// A short drip when a drop falls in the tube, a little higher each time.
 function plop(nth: number) {
   wake();
   try {

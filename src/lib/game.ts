@@ -1,5 +1,5 @@
 // Paint mixing. A colour is shown, and the child pours drops of paint into
-// a pot until the paint in the pot is that colour.
+// a test tube until the paint in it is that colour.
 
 export const LEVELS = ['veryEasy', 'easy', 'medium', 'hard'] as const;
 export type Level = (typeof LEVELS)[number];
@@ -20,8 +20,8 @@ export const PALETTE: Record<Level, readonly Paint[]> = {
   hard: PAINTS,
 };
 
-// The pot holds this many drops; then it is full.
-export const POT = 12;
+// The test tube holds this many drops; then it is full.
+export const TUBE_HOLDS = 12;
 
 // Paint mixes like paint, not like light: yellow and blue make green. Red,
 // yellow and blue are the corners of a cube, and a mix of them is found
@@ -69,7 +69,7 @@ export const count = (drops: readonly Paint[]): Recipe => {
 
 const total = (r: Recipe) => PAINTS.reduce((s, p) => s + r[p], 0);
 
-// The colour of a mix, or undefined for an empty pot. Red, yellow and blue
+// The colour of a mix, or undefined for an empty tube. Red, yellow and blue
 // set the hue: what matters is how much of each there is next to the
 // others, so one red and one yellow is the same orange as two and two.
 // White then lightens it and black darkens it, by how much of each there is.
@@ -107,7 +107,7 @@ const SAME = 0.035;
 export type Round = {
   level: Level;
   target: Recipe;
-  // Drops in the pot, in the order poured.
+  // Drops in the tube, in the order poured.
   drops: Paint[];
   // Earlier `drops`, for Undo.
   history: Paint[][];
@@ -118,7 +118,7 @@ export function isMatched(round: Round) {
   return !!now && distance(now, mix(round.target)!) < SAME;
 }
 
-export const isFull = (round: Round) => round.drops.length >= POT;
+export const isFull = (round: Round) => round.drops.length >= TUBE_HOLDS;
 
 const change = (round: Round, drops: Paint[]): Round => ({
   ...round,

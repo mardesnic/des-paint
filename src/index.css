@@ -6,8 +6,8 @@
   --border: #e2e5ea;
   --accent: #9b3fb5;
   --on-accent: #ffffff;
-  --pot: #dfe3ea;
-  --pot-edge: #8b93a1;
+  --glass: #dfe3ea;
+  --glass-edge: #8b93a1;
   --well: #eceff4;
   --wrong: #e5484d;
   --selected: #f2b200;
@@ -35,8 +35,8 @@
     --border: #2c3038;
     --accent: #d38cf0;
     --on-accent: #2a0f35;
-    --pot: #3a3f49;
-    --pot-edge: #7d8594;
+    --glass: #3a3f49;
+    --glass-edge: #7d8594;
     --well: #262a31;
     --wrong: #ff6b6f;
     --good: #4cc38a;
@@ -206,7 +206,7 @@ h2 {
   min-height: 0;
 }
 
-/* Board: the colour to make and the pot side by side, the paints under */
+/* Board: the colour to make and the test tube side by side, the paints under */
 
 .board {
   width: 100%;
@@ -234,11 +234,11 @@ h2 {
   align-items: center;
   height: 100%;
   min-height: 0;
-  max-height: 260px;
+  max-height: 340px;
 }
 
 .splat,
-.pot {
+.tube {
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -256,42 +256,53 @@ h2 {
   transform: scale(1.08);
 }
 
-.pot__inside {
+.tube__inside {
   fill: var(--well);
 }
 
-.pot__wall {
+.tube__shadow {
+  fill: rgb(0 0 0 / 0.12);
+}
+
+.tube__wall {
   fill: none;
-  stroke: var(--pot-edge);
-  stroke-width: 4;
+  stroke: var(--glass-edge);
+  stroke-width: 3;
   stroke-linejoin: round;
 }
 
-.pot__rim {
-  fill: var(--pot);
-  stroke: var(--pot-edge);
+.tube__lip {
+  fill: var(--glass);
+  stroke: var(--glass-edge);
   stroke-width: 2;
 }
 
-.pot__paint {
-  transition:
-    fill 0.5s,
-    y 0.4s,
-    cy 0.4s;
+/* Light catching the glass. */
+.tube__shine {
+  stroke: rgb(255 255 255 / 0.55);
+  stroke-width: 4;
+  stroke-linecap: round;
 }
 
-.pot__surface {
+.tube__paint {
+  transition:
+    fill 0.5s,
+    y 0.3s,
+    cy 0.3s;
+}
+
+.tube__surface {
   filter: brightness(1.08);
 }
 
-/* A drop falls in from above and sinks into the paint. */
-.pot__drop {
+/* A drop falls in from the mouth of the tube and sinks into the paint. */
+.tube__drop {
   animation: drop 0.45s ease-in forwards;
 }
 
 @keyframes drop {
   from {
-    transform: translateY(-110px);
+    transform: translateY(calc(8px - var(--fall)));
     opacity: 1;
   }
   85% {
@@ -357,7 +368,7 @@ h2 {
 }
 
 .paint__blob {
-  stroke: var(--pot-edge);
+  stroke: var(--glass-edge);
   stroke-width: 1.5;
 }
 
@@ -437,11 +448,11 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pot__paint,
+  .tube__paint,
   .splat path {
     transition: none;
   }
-  .pot__drop {
+  .tube__drop {
     animation: none;
     opacity: 0;
   }
